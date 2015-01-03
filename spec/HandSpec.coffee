@@ -30,11 +30,11 @@ describe 'hand', ->
     assert.equal testHand.length, 2
 
   it 'given two cards, without Ace, Hand.scores() should equal their sum', ->
-    assert.equal testHand.scores(), [14]
+    assert.deepEqual testHand.scores(), [14]
 
   it 'given an Ace and another card, score could equal other card plus 1 or plus 11', ->
     anotherTestHand = new Hand [five, ace]
-    assert.equal anotherTestHand.scores(), [6, 16]
+    assert.deepEqual anotherTestHand.scores(), [6, 16]
 
   it 'hand busts above 21', ->
     anotherTestHand = new Hand [five, nine]

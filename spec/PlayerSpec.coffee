@@ -13,7 +13,6 @@ playerHand = player.get('hand')
 
 describe 'player', ->
 
-  it 'invoking Player.start(), triggers "deal me in"', ->
+  xit 'invoking Player.start(), triggers "deal me in"', ->
 
-
-  it 'invoking Player.hit(), triggers "hit me"', ->
+  xit 'invoking Player.hit(), triggers "hit me"', ->

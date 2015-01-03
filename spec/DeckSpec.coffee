@@ -25,8 +25,12 @@ describe 'deck', ->
 
   describe 'hit', ->
     deck2 = deck.clone()
-    hand = deck2.dealPlayer()
-    it 'should give the last card from the deck', ->
-      assert.strictEqual deck2.length, 50
-      assert.strictEqual deck2.last(), hand.hit()
-      assert.strictEqual deck2.length, 49
+    player = new Player()
+    playerHand = player.get 'hand'
+    it 'when cards are dealt, they should come from the end of the deck', ->
+      deckSize = deck2.length
+      lastOfDeck = deck2.last()
+      player.trigger('hit me')
+      lastofHand = playerHand.last()
+      assert.strictEqual lastOfDeck, lastOfHand
+      assert.strictEqual deck2.length, deckSize - 1

@@ -29,4 +29,5 @@ class window.Hand extends Backbone.Collection
     @minScore() > 21
 
   blackjack: ->
+    if @length > 2 then return false
     _.contains @scores(), 21

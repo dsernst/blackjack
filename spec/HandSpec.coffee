@@ -43,19 +43,13 @@ describe 'hand', ->
     anotherTestHand.add jack
     assert.equal anotherTestHand.busted(), true
 
-  it 'hand hits 21 exactly, then blackjack!', ->
-    anotherTestHand = new Hand [two, nine]
-    assert.equal anotherTestHand.blackjack(), false
-    anotherTestHand.add jack
-    assert.equal anotherTestHand.blackjack(), true
-
   it 'hand with ace that could bust or not, should not bust', ->
     anotherTestHand = new Hand [five, nine, ace]
     assert.equal anotherTestHand.busted(), false
 
-  it 'if hits 21 with an ace, blackjack!', ->
+  it 'if dealt 21, blackjack!', ->
     anotherTestHand = new Hand [jack, ace]
     assert.equal anotherTestHand.blackjack(), true, "j, a"
     anotherTestHand = new Hand [jack, ten, ace]
-    assert.equal anotherTestHand.blackjack(), true, "j, 10, a"
+    assert.equal anotherTestHand.blackjack(), false, "j, 10, a"
 

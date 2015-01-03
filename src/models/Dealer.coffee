@@ -12,14 +12,17 @@ class window.Dealer extends Backbone.Model
     , this
 
     @set
-      hand: startingHand || new Hand
+      hand: startingHand || @dealDealer()
 
-  dealPlayer: ->
-    @set 'hand', new Hand [@deck.pop(), @deck.pop()], @deck
+  dealPlayer: (player) ->
+    player.set 'hand', new Hand [@deck.pop(), @deck.pop()]
 
-  dealCard: ->
-    @get('hand').add(@deck.pop())
-    @get('hand').last()
+  dealDealer: ->
+    new Hand [@deck.pop(), @deck.pop()], true
+
+  dealCard: (player) ->
+    player.get('hand').add(@deck.pop())
+    player.get('hand').last()
 
   go: ->
     # runs dealer logic to determine their own plays

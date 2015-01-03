@@ -32,4 +32,3 @@ describe 'hand', ->
     assert.equal testHand.blackjack(), true, "j, a"
     testHand = new Hand [jack, ten, ace]
     assert.equal testHand.blackjack(), false, "j, 10, a"
-

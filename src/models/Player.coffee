@@ -1,7 +1,11 @@
 class window.Player extends Backbone.Model
-  initialize: ->
+  initialize: (startingHand) ->
     @set
       outcome: null
-      hand: null
+      hand: startingHand || null
 
+  start: ->
     @trigger 'deal me in'
+
+  hit: ->
+    @trigger 'hit me'

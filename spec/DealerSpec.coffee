@@ -33,10 +33,21 @@ describe 'dealer', ->
       assert dealer.hand.stand.wasCalled
 
   describe 'dealing behavior', ->
-    it 'when player asks to be dealt in, deal new player hand', ->
+    it 'when player asks to be dealt in, deal player two cards', ->
+      player = new Player([])
+      handsize = player.get('hand').length
       player.trigger('deal me in')
-      assert dealer.dealPlayer.wasCalled
+      assert.equal player.get('hand').length, handsize + 2
 
     it 'when player asks to be hit, deal them a card', ->
+      player = new Player([])
+      handsize = player.get('hand').length
       player.trigger('hit me')
-      assert dealer.dealCard.wasCalled
+      assert.equal player.get('hand').length, handsize + 1
+
+    it 'Dealer.dealDealer() creates a hand with two cards, one revealed, one not revealed', ->
+      assert.equal dealerHand.length, 2
+      faceUp = dealerHand.reduce (memo, card) ->
+        memo += +card.get 'revealed'
+      , 0
+      assert.equal faceUp, 1

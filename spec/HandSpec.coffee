@@ -7,6 +7,7 @@ describe 'hand', ->
   two = new Card 2
   five = new Card 18
   nine = new Card 9
+  ten = new Card 10
   jack = new Card 11
   ace = new Card 27
   testHand = new Hand [five, nine]
@@ -51,4 +52,10 @@ describe 'hand', ->
   it 'hand with ace that could bust or not, should not bust', ->
     anotherTestHand = new Hand [five, nine, ace]
     assert.equal anotherTestHand.busted(), false
+
+  it 'if hits 21 with an ace, blackjack!', ->
+    anotherTestHand = new Hand [jack, ace]
+    assert.equal anotherTestHand.blackjack(), true, "j, a"
+    anotherTestHand = new Hand [jack, ten, ace]
+    assert.equal anotherTestHand.blackjack(), true, "j, 10, a"
 

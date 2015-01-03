@@ -24,3 +24,9 @@ class window.Hand extends Backbone.Collection
     if @hasAce()
       choices.push @minScore() + 10 * @hasAce()
     choices
+
+  busted: ->
+    @minScore() > 21
+
+  blackjack: ->
+    _.contains @scores(), 21

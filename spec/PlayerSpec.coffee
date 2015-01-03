@@ -9,10 +9,6 @@ jack = new Card 11
 deck = new Deck()
 testGame = new App()
 
-# dealer = testGame.get('dealer')
-# player = players.at(0)
-# playerHand = player.get('hand')
-
 describe 'player', ->
 
   xit 'invoking Player.start(), triggers "deal me in"', ->

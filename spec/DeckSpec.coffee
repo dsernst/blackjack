@@ -31,6 +31,6 @@ describe 'deck', ->
       deckSize = deck2.length
       lastOfDeck = deck2.last()
       player.trigger('hit me')
-      lastofHand = playerHand.last()
-      assert.strictEqual lastOfDeck, lastOfHand
-      assert.strictEqual deck2.length, deckSize - 1
+      lastOfHand = playerHand.last()
+      assert.strictEqual lastOfDeck, lastOfHand, 'comparison'
+      assert.strictEqual deck2.length, deckSize - 1, 'deck length'

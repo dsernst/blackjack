@@ -1,7 +1,5 @@
 class window.Dealer extends Backbone.Model
 
-  dealer = this
-
   initialize: (@deck, @players, startingHand) ->
     @on
       'deal me in': @dealPlayer

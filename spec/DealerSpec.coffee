@@ -37,6 +37,7 @@ describe 'dealer', ->
 
   describe 'dealing behavior', ->
     it 'when player asks to be dealt in, deal player two cards', ->
+      debugger;
       handsize = playerHand.length
       player.trigger('deal me in', "test")
       assert.equal playerHand.length, handsize + 2

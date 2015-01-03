@@ -8,3 +8,7 @@ class window.Player extends Backbone.Model
 
   hit: ->
     @trigger 'hit me'
+
+  setHand: (cards) ->
+    # manually give some cards
+    @set('hand', new Hand(cards))

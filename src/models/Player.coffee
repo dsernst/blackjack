@@ -5,10 +5,10 @@ class window.Player extends Backbone.Model
       hand: startingHand || new Hand
 
   start: ->
-    @trigger 'deal me in'
+    @trigger 'deal me in', @
 
   hit: ->
-    @trigger 'hit me'
+    @trigger 'hit me', @
 
   setHand: (cards) ->
     # manually give some cards

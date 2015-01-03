@@ -16,35 +16,46 @@ playerHand = player.get('hand')
 
 describe 'dealer', ->
   describe 'play behavior', ->
+
+    dealerStood = null
+    dealerHit = null
+
+    beforeEach ->
+      dealerStood = sinon.spy dealer.stand
+      dealerHit = sinon.spy dealer.hit
+
     it 'when dealer\'s score is below 17, dealer hits', ->
+      temp = dealerHit.callCount
       dealer.setHand [nine, five]
-      dealer.go()
-      assert dealer.hit.wasCalled
+      dealer.pickMove()
+      assert.equal dealerHit.callCount, temp + 1
 
     it 'when dealer\'s score is 17 or greater, dealer stands', ->
+      temp = dealerStood.callCount
       dealer.setHand [nine, ten]
-      dealer.go()
-      assert dealer.stand.wasCalled
+      dealer.pickMove()
+      assert.equal dealerStood.callCount, temp + 1
     it 'when dealer has soft 17 (max score 17), dealer hits', ->
+      temp = dealerHit.callCount
       dealer.setHand [ace, six]
-      dealer.go()
-      assert dealer.hit.wasCalled
+      dealer.pickMove()
+      assert.equal dealerHit.callCount, temp + 1
 
     it 'when dealer has hard 17 (min score 17), dealer stands', ->
+      temp = dealerStood.callCount
       dealer.setHand [ten, six, ace]
-      dealer.go()
-      assert dealer.stand.wasCalled
+      dealer.pickMove()
+      assert.equal dealerStood.callCount, temp + 1
 
   describe 'dealing behavior', ->
     it 'when player asks to be dealt in, deal player two cards', ->
-      debugger;
       handsize = playerHand.length
-      player.trigger('deal me in', "test")
+      player.trigger('deal me in', player)
       assert.equal playerHand.length, handsize + 2
 
     it 'when player asks to be hit, deal them a card', ->
       handsize = playerHand.length
-      player.trigger('hit me')
+      player.trigger('hit me', player)
       assert.equal playerHand.length, handsize + 1
 
     it 'Dealer.dealDealer() creates a hand with two cards, one revealed, one not revealed', ->

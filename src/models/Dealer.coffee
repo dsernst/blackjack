@@ -7,9 +7,10 @@ class window.Dealer extends Backbone.Model
 
     @players.each (player) ->
       player.on
-        'deal me in': @dealPlayer, this
-        'hit me': @dealCard, this
-    , this
+        'deal me in': @dealPlayer
+        'hit me': @dealCard
+        , @
+    , @
 
     @set
       hand: startingHand || @dealDealer()
@@ -24,7 +25,7 @@ class window.Dealer extends Backbone.Model
     player.get('hand').add(@deck.pop())
     player.get('hand').last()
 
-  go: ->
+  pickMove: ->
     # runs dealer logic to determine their own plays
 
   setHand: (cards) ->

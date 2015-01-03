@@ -1,16 +1,20 @@
 assert = chai.assert
 
-ace = new Card 27
-two = new Card 2
-five = new Card 18
-nine = new Card 9
-ten = new Card 10
-jack = new Card 11
-deck = new Deck()
 testGame = new App()
+player = testGame.get('players').at(0)
 
 describe 'player', ->
 
-  xit 'invoking Player.start(), triggers "deal me in"', ->
+  spy = sinon.spy()
 
-  xit 'invoking Player.hit(), triggers "hit me"', ->
+  it 'invoking Player.start(), triggers "deal me in"', ->
+    temp = spy.callCount
+    player.on('deal me in', spy)
+    player.start()
+    assert.equal spy.callCount, temp + 1
+
+  it 'invoking Player.hit(), triggers "hit me"', ->
+    temp = spy.callCount
+    player.on('hit me', spy)
+    player.hit()
+    assert.equal spy.callCount, temp + 1

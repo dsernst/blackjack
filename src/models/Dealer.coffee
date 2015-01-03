@@ -2,12 +2,12 @@ class window.Dealer extends Backbone.Model
 
   dealer = this
 
-  initialize: (@deck, startingHand) ->
+  initialize: (@deck, @players, startingHand) ->
     @on
       'deal me in': @dealPlayer
       'hit me': @dealCard
 
-    Players.each (player) ->
+    @players.each (player) ->
       player.on
         'deal me in': @dealPlayer, this
         'hit me': @dealCard, this
@@ -26,8 +26,9 @@ class window.Dealer extends Backbone.Model
   go: ->
     # runs dealer logic to determine their own plays
 
-  add: () ->
+  setHand: (cards) ->
     # manually give a dealer some cards
+    @set('hand', new Hand(cards))
 
   hit: ->
     @trigger 'hit me'

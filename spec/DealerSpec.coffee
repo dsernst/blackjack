@@ -8,43 +8,43 @@ six = new Card 6
 nine = new Card 9
 ten = new Card 10
 jack = new Card 11
-deck = new Deck()
-dealer = new Dealer(deck)
+testGame = new App()
+dealer = testGame.get 'dealer'
 dealerHand = dealer.get 'hand'
+player = testGame.get('players').at(0)
+playerHand = player.get('hand')
 
 describe 'dealer', ->
   describe 'play behavior', ->
     it 'when dealer\'s score is below 17, dealer hits', ->
-      dealer.add nine, five
+      dealer.setHand [nine, five]
       dealer.go()
       assert dealer.hit.wasCalled
 
     it 'when dealer\'s score is 17 or greater, dealer stands', ->
-      dealer.add nine, ten
+      dealer.setHand [nine, ten]
       dealer.go()
       assert dealer.stand.wasCalled
     it 'when dealer has soft 17 (max score 17), dealer hits', ->
-      dealer.add ace, six
+      dealer.setHand [ace, six]
       dealer.go()
       assert dealer.hit.wasCalled
 
     it 'when dealer has hard 17 (min score 17), dealer stands', ->
-      dealer.add ten, six, ace
+      dealer.setHand [ten, six, ace]
       dealer.go()
       assert dealer.stand.wasCalled
 
   describe 'dealing behavior', ->
     it 'when player asks to be dealt in, deal player two cards', ->
-      player = new Player([])
-      handsize = player.get('hand').length
+      handsize = playerHand.length
       player.trigger('deal me in', "test")
-      assert.equal player.get('hand').length, handsize + 2
+      assert.equal playerHand.length, handsize + 2
 
     it 'when player asks to be hit, deal them a card', ->
-      player = new Player([])
-      handsize = player.get('hand').length
+      handsize = playerHand.length
       player.trigger('hit me')
-      assert.equal player.get('hand').length, handsize + 1
+      assert.equal playerHand.length, handsize + 1
 
     it 'Dealer.dealDealer() creates a hand with two cards, one revealed, one not revealed', ->
       assert.equal dealerHand.length, 2

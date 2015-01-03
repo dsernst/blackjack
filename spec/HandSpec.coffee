@@ -2,25 +2,25 @@ assert = chai.assert
 
 deck = new Deck()
 hand = deck.dealPlayer()
+dealerHand = deck.dealDealer()
+two = new Card 2
+five = new Card 18
+nine = new Card 9
+ten = new Card 10
+jack = new Card 11
+ace = new Card 27
 
 describe 'hand', ->
-  two = new Card 2
-  five = new Card 18
-  nine = new Card 9
-  ten = new Card 10
-  jack = new Card 11
-  ace = new Card 27
   testHand = new Hand [five, nine]
 
   it 'Deck.dealPlayer() creates a hand with two cards', ->
     assert.equal hand.length, 2
 
   it 'Hand.hit() adds a card to the hand', ->
-      hand.hit()
-      assert.equal hand.length, 3
+    hand.hit()
+    assert.equal hand.length, 3
 
   it 'Deck.dealDealer() creates a hand with two cards, one revealed, one not revealed', ->
-    dealerHand = deck.dealDealer()
     assert.equal dealerHand.length, 2
     faceUp = dealerHand.reduce (memo, card) ->
       memo += +card.get 'revealed'

@@ -17,35 +17,41 @@ playerHand = player.get('hand')
 describe 'dealer', ->
   describe 'play behavior', ->
 
-    dealerStood = null
-    dealerHit = null
+    dealerStood = sinon.spy()
+    dealerHit = sinon.spy()
 
-    beforeEach ->
-      dealerStood = sinon.spy dealer.stand
-      dealerHit = sinon.spy dealer.hit
+    dealer.on 'hit', dealerHit
+    dealer.on 'stand', dealerStood
 
     it 'when dealer\'s score is below 17, dealer hits', ->
       temp = dealerHit.callCount
-      debugger;
       dealer.setHand [nine, five]
       dealer.pickMove()
+      if (dealerHit.callCount != temp + 1)
+        debugger;
       assert.equal dealerHit.callCount, temp + 1
 
     it 'when dealer\'s score is 17 or greater, dealer stands', ->
       temp = dealerStood.callCount
       dealer.setHand [nine, ten]
       dealer.pickMove()
+      if (dealerStood.callCount != temp + 1)
+        debugger;
       assert.equal dealerStood.callCount, temp + 1
     it 'when dealer has soft 17 (max score 17), dealer hits', ->
       temp = dealerHit.callCount
       dealer.setHand [ace, six]
       dealer.pickMove()
+      if (dealerHit.callCount != temp + 1)
+        debugger;
       assert.equal dealerHit.callCount, temp + 1
 
     it 'when dealer has hard 17 (min score 17), dealer stands', ->
       temp = dealerStood.callCount
       dealer.setHand [ten, six, ace]
       dealer.pickMove()
+      if (dealerStood.callCount != temp + 1)
+        debugger;
       assert.equal dealerStood.callCount, temp + 1
 
   describe 'dealing behavior', ->

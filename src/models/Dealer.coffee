@@ -22,6 +22,7 @@ class window.Dealer extends Backbone.Model
     , @
 
   getScore: ->
+    console.log('got score')
     @score = @get('hand').scores()
 
   dealPlayer: (player) ->
@@ -36,7 +37,7 @@ class window.Dealer extends Backbone.Model
 
   pickMove: ->
     if @score.length is 1
-      if @score < 17
+      if @score[0] < 17
         @hit()
       else
         @stand()
@@ -47,8 +48,14 @@ class window.Dealer extends Backbone.Model
         @stand()
 
   setHand: (cards) ->
+    console.log "set hand"
     # manually give a dealer some cards
     @get('hand').reset cards
+    @get('hand').on
+      'add': @getScore
+      'remove': @getScore
+      'reset': @getScore
+      , @
 
   hit: ->
     @trigger 'hit me', @

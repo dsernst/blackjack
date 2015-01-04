@@ -18,7 +18,7 @@ class window.Hand extends Backbone.Collection
 
     choices = [@minScore()]
     if @hasAce()
-      choices.push @minScore() + 10 * @hasAce()
+      choices.push @minScore() + 10 * (+ @hasAce())
     choices
 
   busted: ->

@@ -26,6 +26,7 @@ describe 'dealer', ->
 
     it 'when dealer\'s score is below 17, dealer hits', ->
       temp = dealerHit.callCount
+      debugger;
       dealer.setHand [nine, five]
       dealer.pickMove()
       assert.equal dealerHit.callCount, temp + 1

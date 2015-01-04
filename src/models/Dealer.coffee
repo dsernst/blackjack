@@ -5,6 +5,15 @@ class window.Dealer extends Backbone.Model
       'deal me in': @dealPlayer
       'hit me': @dealCard
 
+    @set
+      hand: startingHand || @dealDealer()
+
+    @get('hand').on
+      'add': @getScore
+      'remove': @getScore
+      'reset': @getScore
+      , @
+
     @players.each (player) ->
       player.on
         'deal me in': @dealPlayer
@@ -12,8 +21,8 @@ class window.Dealer extends Backbone.Model
         , @
     , @
 
-    @set
-      hand: startingHand || @dealDealer()
+  getScore: ->
+    @score = @get('hand').scores()
 
   dealPlayer: (player) ->
     player.set 'hand', new Hand [@deck.pop(), @deck.pop()]
@@ -26,14 +35,23 @@ class window.Dealer extends Backbone.Model
     player.get('hand').last()
 
   pickMove: ->
-    # runs dealer logic to determine their own plays
+    if @score.length is 1
+      if @score < 17
+        @hit()
+      else
+        @stand()
+    if @score.length is 2
+      if @score[1] < 18
+        @hit()
+      else
+        @stand()
 
   setHand: (cards) ->
     # manually give a dealer some cards
-    @set('hand', new Hand(cards))
+    @get('hand').reset cards
 
   hit: ->
-    @trigger 'hit me'
+    @trigger 'hit me', @
 
   stand: ->
     @trigger 'stand'
